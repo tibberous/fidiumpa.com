@@ -1,15 +1,24 @@
 <?php
 
-    print_r($_SERVER);
-    die();
+    if($_SERVER['DOCUMENT_ROOT'] === "/home/u678805949/domains/fidiumpa.com/public_html"){
+        // use database settings for Hostinger
+        $password = file_get_contents("hostinger.key");
 
-    $mysqli = new mysqli("localhost:3306", $user="root", $pass="s3cr3tDatabase", "test");
+        $mysqli = new mysqli("localhost:3306", $user="root", $password, "test");
 
-    if ($mysqli->connect_errno) {
-        printf("Connect failed: %s\n", $mysqli->connect_error);
-        exit();
+        if ($mysqli->connect_errno) {
+            printf("Connect failed: %s\n", $mysqli->connect_error);
+            exit();
+        }
+    } else {
+        $password = file_get_contents("localhost.key");
+
+        $mysqli = new mysqli("localhost:3306", $user="root", $password, "test");
+
+        if ($mysqli->connect_errno) {
+            printf("Connect failed: %s\n", $mysqli->connect_error);
+            exit();
+        }
     }
 
-    /*$result = $mysqli->query("SELECT 'Hello, dear MySQL user!' AS _message FROM DUAL");
-    $row = $result->fetch_assoc();
-e   cho htmlentities($row['_message']);*/
+
