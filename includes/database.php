@@ -12,9 +12,9 @@
         echo "Password:50{$password}";
         die();
 
-        if /*($mysqli->connect_errno) {
+        if ($mysqli->connect_errno) {
             printf("Connect failed: %s\n", $mysqli->connect_error);
-            exit();*/
+            exit();
         }
     } else {
         $password = file_get_contents("localhost.key");
