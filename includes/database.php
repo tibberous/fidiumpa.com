@@ -6,9 +6,11 @@
 
         $mysqli = new mysqli("localhost:3306", $user="root", $password, "test");
 
-        if ($mysqli->connect_errno) {
+        echo "Live Server";
+
+        if /*($mysqli->connect_errno) {
             printf("Connect failed: %s\n", $mysqli->connect_error);
-            exit();
+            exit();*/
         }
     } else {
         $password = file_get_contents("localhost.key");
@@ -19,6 +21,8 @@
             printf("Connect failed: %s\n", $mysqli->connect_error);
             exit();
         }
+
+        //print_r($mysqli);
     }
 
 
