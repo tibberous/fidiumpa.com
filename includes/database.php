@@ -13,8 +13,8 @@ if($_SERVER['DOCUMENT_ROOT'] === "/home/u678805949/domains/fidiumpa.com/public_h
             printf("Connect failed: %s\n", $mysqli->connect_error);
             exit();
         } else {
-        echo "Connected!";
-        die();
+        //echo "Connected!";
+        //die();
     }
 
 } else {
