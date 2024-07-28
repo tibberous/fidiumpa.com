@@ -8,13 +8,11 @@ if($_SERVER['DOCUMENT_ROOT'] === "/home/u678805949/domains/fidiumpa.com/public_h
 
         $mysqli = new mysqli("localhost", $user="u678805949_fidiumpa", "{$password}50", "u678805949_fidiumpa");
 
-
         if ($mysqli->connect_errno) {
             printf("Connect failed: %s\n", $mysqli->connect_error);
             exit();
         } else {
-        //echo "Connected!";
-        //die();
+
     }
 
 } else {
@@ -27,10 +25,7 @@ if($_SERVER['DOCUMENT_ROOT'] === "/home/u678805949/domains/fidiumpa.com/public_h
             exit();
         }
 
-        print_r($mysqli);
 
-        echo "Connected";
-        die();
     }
 
 

@@ -1,5 +1,91 @@
 <?php
-    require_once("includes/database.php");
+    //require_once("includes/database.php");
+
+    //print_r($_SERVER);
+
+//die();
+
+//$ret = mail("tibberous@localhost", "Testing 1 2 3", "Testing 1 2 3", "From: tibberous@localhost");
+
+//print_r($ret);
+//$ret = mail("trenttompkins@gmail.com", "Testing", "Testing", "From: tibberous@localhost");
+
+//print_r($ret);
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+    if($_REQUEST['action'] == 'contact'){
+
+        
+
+        $outgoing_password = file_get_contents("smtp.key").'!';
+
+
+
+
+        //Load Composer's autoloader
+        require 'vendor/autoload.php';
+
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+
+        try {
+            //Server settings
+            //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.titan.email';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'trent@fidiumpa.com';                     //SMTP username
+            $mail->Password   = $outgoing_password;                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+            //Recipients
+            $mail->setFrom('trent@fidiumpa.com', 'Mailer');
+            $mail->addAddress('trenttompkins@gmail.com', 'Trent Tompkins');     //Add a recipient
+            //$mail->addAddress('ellen@example.com');               //Name is optional
+            $mail->addReplyTo('trent@fidiumpa.com', 'Trent Tompkins');
+            //$mail->addCC('cc@example.com');
+            //$mail->addBCC('bcc@example.com');
+
+            //Attachments
+            //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Contact Form';
+            $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+
+        die();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     //print($mysqli);
 
@@ -68,7 +154,7 @@
             <div class="item active">
                 <div class="container">
                     <div class="carousel-content">
-                        <h1>Free Onepage Theme</h1>
+                        <h1>Under Construction</h1>
                         <p class="lead">Xeon is the best free onepage responsive theme available arround the globe<br>Download it right now for free</p>
                     </div>
                 </div>
@@ -328,24 +414,24 @@
                         </div>
                         <div class="item">
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="member">
-                                        <p><img class="img-responsive img-thumbnail img-circle" src="images/team3.jpg" alt="" ></p>
-                                        <h3>David Robbins<small class="designation">Co-Founder</small></h3>
-                                    </div>
-                                </div>   
-                                <div class="col-sm-4">
-                                    <div class="member">
-                                        <p><img class="img-responsive img-thumbnail img-circle" src="images/team1.jpg" alt="" ></p>
-                                        <h3>Philip Mejia<small class="designation">Marketing Manager</small></h3>
-                                    </div>
-                                </div>     
-                                <div class="col-sm-4">
-                                    <div class="member">
-                                        <p><img class="img-responsive img-thumbnail img-circle" src="images/team2.jpg" alt="" ></p>
-                                        <h3>Charles Erickson<small class="designation">Support Manager</small></h3>
-                                    </div>
-                                </div>
+ 
+                            
+
+<a href="#one" class="hash">One</a> 
+<div style='height:400px'>
+    <p>some text</p>
+</div style='height:400px'>
+<a href="#two" class="hash">Two</a> 
+<div>
+    <p>some text</p>
+</div style='height:400px'>
+<a href="#three" class="hash">Three</a> 
+<div style='height:400px'>
+    <p>some text</p>
+</div>
+
+
+
                             </div>
                         </div>
                     </div>
@@ -440,7 +526,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    &copy; 2013 <a target="_blank" href="http://shapebootstrap.net/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>. All Rights Reserved.
+                    &copy; 2013 
                 </div>
                 <div class="col-sm-6">
                     <img class="pull-right" src="images/shapebootstrap.png" alt="ShapeBootstrap" title="ShapeBootstrap">
@@ -453,6 +539,91 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.isotope.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
+    <script>
+
+//addEventListener("popstate", (event) => { alert('popstate'); });
+//onpopstate = (event) => { alert('popstate'); };
+
+jQuery(function ($) {
+  $(function () {
+    $("#main-slider.carousel").carousel({
+      interval: 10000,
+      pause: false,
+    });
+  });
+
+  //Ajax contact
+  var form = $(".contact-form");
+  form.submit(function () {
+    $this = $(this);
+    $.post(
+      $(this).attr("action"),
+      function (data) {
+        $this.prev().text(data.message).fadeIn().delay(3000).fadeOut();
+      },
+      "json"
+    );
+    return false;
+  });
+
+  //smooth scroll
+  $(".navbar-nav > li").click(function (event) {
+    //event.preventDefault();
+    var target = $(this).find(">a").prop("hash");
+    $("html, body").animate(
+      {
+        scrollTop: $(target).offset().top,
+      },
+      500
+    );
+  });
+
+  //scrollspy
+  $('[data-spy="scroll"]').each(function () {
+    var $spy = $(this).scrollspy("refresh");
+
+  });
+
+  //PrettyPhoto
+  $("a.preview").prettyPhoto({
+    social_tools: false,
+  });
+
+  //Isotope
+  $(window).load(function () {
+    $portfolio = $(".portfolio-items");
+    $portfolio.isotope({
+      itemSelector: "li",
+      layoutMode: "fitRows",
+    });
+    $portfolio_selectors = $(".portfolio-filter >li>a");
+    $portfolio_selectors.on("click", function () {
+      $portfolio_selectors.removeClass("active");
+      $(this).addClass("active");
+      var selector = $(this).attr("data-filter");
+      $portfolio.isotope({ filter: selector });
+      return false;
+    });
+  });
+});
+
+
+/*$(function () {
+    var currentHash = "#one"
+    $(document).scroll(function () {
+        $('.hash').each(function () {
+            var top = window.pageYOffset;
+            var distance = top - $(this).offset().top;
+            var hash = $(this).attr('href');
+
+            if (distance < 30 && distance > -30 && currentHash != hash) {
+                alert(hash);
+                currentHash = hash;
+            }
+        });
+    });
+});*/
+
+    </script>
 </body>
 </html>

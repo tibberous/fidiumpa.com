@@ -1,2 +1,5 @@
 hostinger.key
 localhost.key
+smtp.key
+composer.lock
+*.log
